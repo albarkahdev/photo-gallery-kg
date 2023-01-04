@@ -1,0 +1,45 @@
+.card_photo {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  margin: 20px 10px;
+  max-height: 290px;
+  max-width: 205px;
+  min-height: 290px;
+  min-width: 205px;
+  cursor: pointer;
+	overflow: hidden;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+
+.card_photo:hover {
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+}
+
+.image_container {
+  
+}
+
+.image {
+  object-fit: cover;
+  height: 205px;
+  width: 205px;
+  transition: transform 500ms ease;
+}
+
+.image:hover {
+  transform: scale(1.1);
+}
+
+.description {
+  padding: 10px;
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+}
+
+.name > p {
+  text-align: center;
+  text-transform: capitalize;
+}
