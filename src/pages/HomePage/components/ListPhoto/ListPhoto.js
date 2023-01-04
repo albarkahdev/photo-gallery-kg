@@ -25,14 +25,18 @@ const ListPhoto = () => {
   };
 
   if (loadingPhotos) {
-    return <p>Loading List...</p>;
+    return <p className={styles.empty}>Loading List...</p>;
+  }
+  
+  if (photos && photos.length == 0) {
+    return <p className={styles.empty}>List photo empty</p>;
   }
 
   return (
     <div className={styles.list_container}>
-      {photos?.map(photo => {
+      {photos?.map((photo, idx) => {
         return (
-          <CardPhoto data={photo} onClick={handleClickCardPhoto} />
+          <CardPhoto key={idx} data={photo} onClick={handleClickCardPhoto} />
         )
       })}
       <ModalPhoto data={selectedPhoto} show={isModalOpen} handleClose={hideModal} />

@@ -1,16 +1,8 @@
-import { useState } from "react";
-import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import styles from './CardPhoto.module.css';
 
 const CardPhoto = ({ data: photo, onClick }) => {
-  // const navigate = useNavigate();
-  
-  // const handleShowDetailPokemon = () => {
-  //   navigate(`/${photo?.id}`);
-  // }
-  
   return (
     <div className={styles.card_photo} onClick={() => onClick(photo)}>
       <div className={styles.image_container}>

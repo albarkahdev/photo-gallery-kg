@@ -1,138 +1,40 @@
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
+
 import styles from './DetailPage.module.css';
+import { getPhotoDetails } from "../../store/photos/actions";
+import { useEffect } from "react";
 
 function DetailPage() {
-  // const [{ pokemon }, dispatch] = useContext(GlobalContext);
-  // const [currentPokemon, setCurrentPokemon] = useState({});
-  // const [currentImage, setCurrentImage] = useState(0);
-  // const [isViewerOpen, setIsViewerOpen] = useState(false);
+  const { photo, loadingPhotoDetails } = useSelector((state) => state.PhotoReducer);
+  let dispatch = useDispatch();
 
+  const params = useParams();
 
-  // const params = useParams();
+  useEffect(() => {
+    const { photoId } = params;
+    dispatch(getPhotoDetails(photoId));
+  }, []);
 
-  return null;
+  if (loadingPhotoDetails) {
+    return <p className={styles.empty}>Loading photo...</p>;
+  }
+  
+  if (photo && photo === {}) {
+    return <p className={styles.empty}>Data not valid</p>;
+  }
 
-  // useEffect(() => {
-
-  //   const fetchApiPokemon = async () => {
-  //     const { pokemonId } = params;
-
-  //     try {
-  //       if (pokemon?.id === pokemonId) {
-  //         setCurrentPokemon(pokemon);
-  //         return null;
-  //       }
-
-  //       const result = await PokemonActions.getPokemon({ pokemonId });
-  //       setCurrentPokemon(result);
-  //       PokemonActions.setPokemon({ pokemon: result }, dispatch);
-  //     } catch (err) {
-  //       console.log({err});
-  //     }
-  //   };
-
-  // fetchApiPokemon();
-  // }, []);
-
-  // const getAttributePokemon = useCallback(() => {
-  //   const weight = currentPokemon?.weight;
-  //   const height = currentPokemon?.height;
-  //   let types = currentPokemon?.types;
-  //   types = types?.map(val => (val?.type?.name));
-  //   types = types?.join(', ');
-  //   let abilities = currentPokemon?.abilities;
-  //   abilities = abilities?.map(val => (val?.ability?.name));
-  //   abilities = abilities?.join(', ');
-  //   let stats = currentPokemon?.stats;
-  //   stats = stats?.map(val => ({ nameStats: val?.stat?.name, baseStats: val?.base_stat }));
-  //   const sprites = Object.keys(currentPokemon?.sprites || {})?.map(val => (currentPokemon?.sprites?.[val]))?.filter(val => typeof val === "string");
-
-  //   return {
-  //     weight,
-  //     height,
-  //     types,
-  //     abilities,
-  //     stats,
-  //     sprites,
-  //   }
-  // }, [currentPokemon]);
-
-  // const attributePokemon = getAttributePokemon();
-
-  // const openImageViewer = useCallback((index) => {
-  //   setCurrentImage(index);
-  //   setIsViewerOpen(true);
-  // }, []);
-
-  // const closeImageViewer = () => {
-  //   setCurrentImage(0);
-  //   setIsViewerOpen(false);
-  // };
-
-  // if (currentPokemon === {}) {
-  //   return (
-  //     <div>
-  //       <p>Loading...</p>
-  //     </div>
-  //   )
-  // }
-
-  // return (
-  //   <div className={styles.container}>
-  //     <div className={styles.title}>
-  //       <h1>{currentPokemon?.name}</h1>
-  //       <h1 className={styles.id}>#{currentPokemon?.id}</h1>
-        
-  //     </div>
-  //     <div className={styles.detail}>
-  //       <div className={styles.image_container}>
-  //         <img
-  //           className={styles.thumbnail}
-  //           src={currentPokemon?.sprites?.front_default}
-  //           alt={currentPokemon?.name}
-  //         />
-          
-  //       </div>
-  //       <div className={styles.detail_attribute}>
-  //         <div className={styles.box_detail_attribute}>
-  //           <AttributePokemon attribute="Weight" value={attributePokemon?.weight} />
-  //           <AttributePokemon attribute="Height" value={attributePokemon?.height} />
-  //           <AttributePokemon attribute="Abilities" value={attributePokemon?.abilities} />
-  //           <AttributePokemon attribute="Types" value={attributePokemon?.types} />
-  //           {attributePokemon?.stats?.map(stat => {
-  //             return <AttributePokemon attribute={stat?.nameStats} value={stat?.baseStats} />
-  //           })}
-  //         </div>
-  //       </div>
-        
-  //     </div>
-  //     <div className={styles.footer}>
-  //       <div className={styles.images_title}>
-  //         <h3>Images</h3>
-  //       </div>
-  //       <div className={styles.images_container}>
-  //         {attributePokemon?.sprites?.map((sprite, indexSprite) => {
-  //           return (
-  //             <ImagePokemon
-  //               src={sprite}
-  //               alt="sprite_image"
-  //               onClick={() => openImageViewer(indexSprite)}
-  //             />
-  //           )
-  //         })}
-
-  //         {isViewerOpen && (
-  //           <ImageViewer
-  //             src={attributePokemon?.sprites}
-  //             currentIndex={ currentImage }
-  //             disableScroll={ false }
-  //             closeOnClickOutside={ true }
-  //             onClose={ closeImageViewer }
-  //           />
-  //         )}
-  //       </div>
-  //     </div>
-  //   </div>
-  // )
+  return (
+    <div className={styles.container}>
+      <img className={styles.image} src={photo?.urls?.regular} alt={photo?.alt_description} />
+      <div className={styles.photo_description}>
+        <p>{photo?.alt_description}</p>
+        <p>by {photo?.user?.name}</p>
+        <p></p>
+      </div>
+    </div>
+  );
 }
 
 export default DetailPage;

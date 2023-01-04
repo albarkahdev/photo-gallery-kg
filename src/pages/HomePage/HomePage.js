@@ -1,4 +1,4 @@
-import { useEffect, useContext, Suspense, useState } from "react";
+import { useEffect, Suspense } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 
@@ -28,7 +28,7 @@ function HomePage() {
     <>
       <Suspense fallback={<p>Loading HomePage...</p>}>
         <div className={styles.container}>
-          <h1>Photo Gallery</h1>
+          <h1 className={styles.title}>Photo Gallery</h1>
           <SearchPhotos />
           <Suspense fallback={<p>Loading List Image...</p>}>
             <ListPhoto />

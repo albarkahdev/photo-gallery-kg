@@ -9,7 +9,7 @@ function App() {
     <div className={styles.App}>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/:pokemonId" element={<DetailPage />} />
+        <Route path="/:photoId" element={<DetailPage />} />
       </Routes>
     </div>
   );
